@@ -1,0 +1,93 @@
+body {
+    background-color: black;
+    margin: 0;
+}
+
+#main {
+    transition: transform 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.top {
+    transform: translateY(-154px);
+}
+
+.center {
+    transform: translateY(0);
+}
+
+#type_effectiveness {
+    display: flex;
+    flex-flow: column wrap;
+    max-height: 154px;
+}
+
+.stack {
+    width: 246px;
+    height: 72px;
+}
+
+.hidden {
+    display: none;
+}
+
+.normal, .poison, .psychic, .grass, .ground, .ice, .fire, .rock, .dragon, .steel, .water, .bug, .dark, .fairy, .fighting, .ghost, .flying, .electric {
+    width: 201px;
+    height: 74px;
+    background-image: url("types.png");
+    background-repeat: no-repeat;
+}
+
+.normal {
+    background-position: 0 0
+}
+.poison {
+    background-position: -201px 0
+}
+.psychic {
+    background-position: -401px 0
+}
+.grass {
+    background-position: 0 -74px
+}
+.ground {
+    background-position: -201px -74px
+}
+.ice {
+    background-position: -401px -74px
+}
+.fire {
+    background-position: 0 -149px
+}
+.rock {
+    background-position: -201px -149px
+}
+.dragon {
+    background-position: -401px -149px
+}
+.water {
+    background-position: 0 -224px
+}
+.bug {
+    background-position: -201px -224px
+}
+.dark {
+    background-position: -401px -224px
+}
+.fighting {
+    background-position: 0 -298px
+}
+.ghost {
+    background-position: -201px -298px
+}
+.steel {
+    background-position: -401px -298px
+}
+.flying {
+    background-position: 0 -372px
+}
+.electric {
+    background-position: -201px -372px
+}
+.fairy {
+    background-position: -401px -372px
+}

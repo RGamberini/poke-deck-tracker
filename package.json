@@ -1,0 +1,19 @@
+{
+  "name": "poke-deck-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "9.1.0",
+    "robot-js": "github:p120ph37/robot-js#prebuilt"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.11.0"
+  }
+}
