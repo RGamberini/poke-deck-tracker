@@ -1,5 +1,6 @@
 const { app, BrowserWindow, screen } = require('electron');
 const {Memory, MemoryError} = require('./memory');
+const robot = require('robot-js');
 
 const Pokedex = require('./pokedex');
 const memory = new Memory();
@@ -79,6 +80,7 @@ function main(win) {
     function poll() {
         try {
             let national_dex = memory.query();
+            console.debug(`Found what could be a pokemon, National Dex #: ${national_dex}`);
             win.webContents.send("enemy_pokemon", {
                 "national_dex": national_dex,
                 "types": pokedex.getType(national_dex),
@@ -86,8 +88,21 @@ function main(win) {
             });
         } catch (exception) {
             console.log(`${exception.name}: ${exception.message}`);
-            if (exception.name === "TypeError") app.quit();
+            if (exception.name === "TypeError")
+                if (exception.message === "Cannot read property '0' of undefined")
+                    memory.clearOffset();
+                else app.quit();
         }
+
+        // let active_window = robot.Window.getActive().getProcess().getName();
+        // // if (active_window === "electron.exe" || active_window === "DeSmuME_0.9.11_x64.exe") {
+        // //     win.setAlwaysOnTop(true, 'screen-saver');
+        // //     win.show();
+        // // }
+        // // else {
+        // //     win.setAlwaysOnTop(false);
+        // //     win.hide();
+        // // }
     }
     setInterval(poll, 1000);
     // let national_dex = 200;
@@ -104,5 +119,5 @@ function main(win) {
     //         "types": pokedex.getType(national_dex),
     //         "effectiveness": pokedex.getAllEffectiveness(national_dex)
     //     });
-    // }, 1500)
+    // }, 3000)
 }

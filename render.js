@@ -1,14 +1,16 @@
 // In renderer process (web page).
 const { ipcRenderer } = require('electron');
+const drawer = document.querySelector("#main");
 const poke_types = [
     document.querySelector("#poke_type_1"),
     document.querySelector("#poke_type_2")
 ];
-
 const poke_sprite = document.querySelector("#poke_sprite");
 const type_effectiveness = document.querySelector("#type_effectiveness");
-const main = document.querySelector("#main");
-let first = true;
+const close_button = document.querySelector("#close_button");
+close_button.addEventListener('click', function () {
+    drawer.className = "top";
+});
 
 function addType(type, effectiveness) {
     let new_type = document.createElement("div");
@@ -36,9 +38,7 @@ ipcRenderer.on("enemy_pokemon", ((event, pokemon) => {
         return
     }
     if (national_dex === current_pokemon) return;
-    if (!first) {
-        main.className = "top";
-    }
+    drawer.className = "top";
     setTimeout(() => {
         current_pokemon = national_dex;
         poke_sprite.setAttribute("src", `pokedex_sprites/${national_dex}.png`);
@@ -53,8 +53,7 @@ ipcRenderer.on("enemy_pokemon", ((event, pokemon) => {
         effectivenesses.forEach(([type, effectiveness]) => addType(type, effectiveness));
         type_effectiveness.setAttribute("style", `width: ${Math.ceil(effectivenesses.length / 2) * 246}px`);
 
-        first = false;
-        main.className = "center"
+        drawer.className = "center"
     }, 600);
 }));
 
