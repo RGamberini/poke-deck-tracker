@@ -1,5 +1,5 @@
 // In renderer process (web page).
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, remote } = require('electron');
 const drawer = document.querySelector("#main");
 const poke_types = [
     document.querySelector("#poke_type_1"),
@@ -7,10 +7,11 @@ const poke_types = [
 ];
 const poke_sprite = document.querySelector("#poke_sprite");
 const type_effectiveness = document.querySelector("#type_effectiveness");
-const close_button = document.querySelector("#close_button");
-close_button.addEventListener('click', function () {
-    drawer.className = "top";
-});
+let hide_direction;
+ipcRenderer.on("config", ((event, new_hide_direction) => {
+    console.log(new_hide_direction);
+    hide_direction = new_hide_direction;
+}));
 
 function addType(type, effectiveness) {
     let new_type = document.createElement("div");
@@ -38,7 +39,7 @@ ipcRenderer.on("enemy_pokemon", ((event, pokemon) => {
         return
     }
     if (national_dex === current_pokemon) return;
-    drawer.className = "top";
+    drawer.className = hide_direction;
     setTimeout(() => {
         current_pokemon = national_dex;
         poke_sprite.setAttribute("src", `pokedex_sprites/${national_dex}.png`);

@@ -1,0 +1,110 @@
+body {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    height: 100vh;
+    overflow: hidden;
+    align-items: center;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 21px;
+    /* identical to box height */
+
+    text-align: center;
+}
+
+#container {
+    display: flex;
+    position: relative;
+    width: 171px;
+    height: 156px;
+
+    overflow: hidden;
+    background: #FFFFFF;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 13px;
+    transform: scale(2);
+}
+
+#stat_backgrounds {
+    width: 100%;
+    height: 100%;
+}
+
+#stat_backgrounds > div {
+    height: calc(100% / 6);
+    width: 100%;
+}
+
+#stat_names > div {
+    height: calc(100% / 6);
+    width: 120px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#stat_values > div {
+    height: calc(100% / 6);
+    width: 51px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#darken {
+    position: absolute;
+    z-index: 1;
+    margin-left: 120px;
+    height: 100%;
+    width: 51px;
+    background: rgba(0, 0, 0, 0.25);
+    mix-blend-mode: darken;
+    box-shadow: inset 4px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 13px;
+}
+
+#stat_names {
+    position: absolute;
+    z-index: 2;
+    color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: fit-content;
+}
+#stat_values {
+    position: absolute;
+    height: 100%;
+    margin-left: 120px;
+    z-index: 2;
+    color: #FFFFFF;
+    width: fit-content;
+}
+
+#stat_backgrounds > .HP {
+    background: #FF5959;
+}
+
+#stat_backgrounds > .Attack {
+    background: #F5AC78;
+}
+
+#stat_backgrounds > .Defense {
+    background: #FAE078;
+}
+
+#stat_backgrounds > .SP\.Attack {
+    background: #9DB7F5;
+}
+
+#stat_backgrounds > .SP\.Defense {
+    background: #A7DB8D;
+}
+
+#stat_backgrounds > .Speed {
+    background: #FA92B2;
+}

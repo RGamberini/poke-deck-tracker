@@ -8277,7 +8277,8 @@
       "french": "Luxray"
     },
     "type": [
-      "Electric"
+      "Electric",
+      "Dark"
     ],
     "base": {
       "HP": 80,
