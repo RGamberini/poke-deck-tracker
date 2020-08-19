@@ -5,15 +5,7 @@ body {
     height: 100vh;
     overflow: hidden;
     align-items: center;
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 900;
-    font-size: 18px;
-    line-height: 21px;
     /* identical to box height */
-
-    text-align: center;
 }
 
 #container {
@@ -21,6 +13,13 @@ body {
     position: relative;
     width: 171px;
     height: 156px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
 
     overflow: hidden;
     background: #FFFFFF;

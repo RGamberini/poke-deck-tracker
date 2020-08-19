@@ -6,17 +6,58 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id = "main" style="display: flex; justify-content: center">
+<div id = "top_drawer" class="top" style="display: flex; justify-content: center">
     <div style="display: flex">
         <div style="display: flex; align-items: center">
-            <div id="poke_type_1" class="hidden"></div>
-            <div id="poke_type_2" class="hidden"></div>
+            <div class="poke_type hidden"></div>
+            <div class="poke_type hidden"></div>
         </div>
-        <img id="poke_sprite" src="" alt="" style="height: 154px; width: 154px">
+        <img class="poke_sprite" src="" alt="" style="height: 154px; width: 154px">
     </div>
-    <div style="display: flex;">
-        <div id="type_effectiveness"></div>
+    <div style="display: flex">
+        <div class="type_effectiveness"></div>
     </div>
+</div>
+<div id ="space_filler"></div>
+<div id = "bottom_drawer" class="bottom" style="display: flex; justify-content: center">
+    <div style="display: flex">
+        <div style="display: flex; align-items: center">
+            <div class="poke_type hidden"></div>
+            <div class="poke_type hidden"></div>
+        </div>
+        <img class="poke_sprite" src="" alt="" style="height: 154px; width: 154px">
+    </div>
+    <div style="display: flex">
+        <div class="type_effectiveness"></div>
+    </div>
+</div>
+
+<div id="container" class="invisible">
+    <div id="stat_backgrounds">
+        <div class="hp"></div>
+        <div class="attack"></div>
+        <div class="defense"></div>
+        <div class="sp_attack"></div>
+        <div class="sp_defense"></div>
+        <div class="speed"></div>
+    </div>
+    <div id="stat_names">
+        <div class="hp">HP</div>
+        <div class="attack">Attack</div>
+        <div class="defense">Defense</div>
+        <div class="sp_attack">SP. Attack</div>
+        <div class="sp_defense">SP. Defense</div>
+        <div class="speed">Speed</div>
+    </div>
+    <div id="stat_values">
+        <div class="hp"></div>
+        <div class="attack"></div>
+        <div class="defense"></div>
+        <div class="sp_attack"></div>
+        <div class="sp_defense"></div>
+        <div class="speed"></div>
+    </div>
+    <div id="darken"></div>
 </div>
 </body>
 <script type="application/javascript" src="render.js"></script>

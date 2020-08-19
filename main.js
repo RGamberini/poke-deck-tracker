@@ -6,43 +6,14 @@ const Pokedex = require('./pokedex');
 const pokedex = new Pokedex();
 const memory = new Memory();
 const AUTOHIDE = true;
-const windows = {
-    TOP: {
-        hide_direction: "top",
-        getX: function (screenWidth) {
-            return 15;
-        },
-        getY: function (screenHeight) {
-            return 15;
-        },
-        ready: false
-    },
-
-    BOTTOM: {
-        hide_direction: "bottom",
-        getX: function (screenWidth) {
-            return 15;
-        },
-
-        getY: function (screenHeight) {
-            return screenHeight - 154 - 15;
-        },
-        ready: false
-    }
-};
-
 function start() {
     try {
         memory.attach();
         memory.query();
     } catch (e) {}
 
-    if (memory.ready()) {
-        windows.TOP = createWindow(windows.TOP);
-        windows.BOTTOM = createWindow(windows.BOTTOM);
-
-        main();
-    }
+    if (memory.ready())
+        createWindow();
     else setTimeout(start, 1000);
 }
 
@@ -50,19 +21,20 @@ function createWindow (config) {
     // Create the browser window.
     const { width, height } = screen.getPrimaryDisplay().workAreaSize;
     const win = new BrowserWindow({
-        width: width - 30,
-        height: 154,
-        x: config.getX(width),
-        y: config.getY(height),
+        width: width,
+        height: height,
+        x: 0,
+        y: 0,
         frame: false,
         alwaysOnTop: true,
         webPreferences: {
             nodeIntegration: true
         },
-        backgroundColor: '#000000'
+        transparent: true
     });
 
     win.setAlwaysOnTop(true, 'screen-saver');
+    win.setIgnoreMouseEvents(true, {forward: true});
     win.setMenuBarVisibility(false);
 
     // and load the index.html of the app.
@@ -72,10 +44,9 @@ function createWindow (config) {
     // win.webContents.openDevTools();
     win.webContents.on('did-finish-load', ()=> {
         win.on("closed", () => app.quit());
-        win.webContents.send("config", config.hide_direction);
         win.ready = true;
+        main(win);
     });
-    return win;
 }
 
 function autoHide(window) {
@@ -90,31 +61,31 @@ function autoHide(window) {
     }
 }
 
-function sendPokemon(national_dex, window) {
-    window.webContents.send("enemy_pokemon", {
+function getPokemon(pokemon) {
+    let national_dex = pokemon.national_dex;
+    return {
         "national_dex": national_dex,
         "types": pokedex.getType(national_dex),
-        "effectiveness": pokedex.getAllEffectiveness(national_dex)
-    });
+        "effectiveness": pokedex.getAllEffectiveness(national_dex),
+        "stats": pokemon.stats
+    };
 }
 
-function main() {
+function main(win) {
     function poll() {
         try {
-            let pokemon = memory.query();
-            if (pokemon.length > 1) {
-                sendPokemon(pokemon[1], windows.TOP);
-                sendPokemon(pokemon[0], windows.BOTTOM);
-            } else sendPokemon(pokemon[0], windows.TOP);
+            let {player_pokemon, enemy_pokemon} = memory.query();
+            win.webContents.send("enemy_pokemon", enemy_pokemon.map(getPokemon));
         } catch (exception) {
             console.log(`${exception.name}: ${exception.message}`);
             if (exception.name === "TypeError")
-                if (exception.message === "Cannot read property '0' of undefined")
+                if (exception.message === "Cannot read property '0' of undefined") {
                     memory.clearOffset();
-                else app.quit();
+                }
+                else throw exception
         }
         if (AUTOHIDE)
-            for (let window in windows) autoHide(windows[window]);
+            autoHide(win);
     }
     setInterval(poll, 1000);
 }
